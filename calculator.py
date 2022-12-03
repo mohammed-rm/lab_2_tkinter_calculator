@@ -29,7 +29,8 @@ class Calculator(Tk):
         height = self.winfo_height()
         x = (self.winfo_screenwidth() // 2) - (width // 2)
         y = (self.winfo_screenheight() // 2) - (height // 2)
-        self.geometry(f"{width}x{height}+{int(x)}+{int(y)}")
+        self.geometry(f"{width}x{height}+{x}+{y}")
+        self.deiconify()
 
     def create_display_zone(self):
         self.display_zone = True
