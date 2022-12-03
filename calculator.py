@@ -8,6 +8,8 @@ class Calculator(Tk):
         self.configure(bg='gray')
         self.title("Calculator")
         self.geometry("315x500")
+        self.display: Entry = Entry()
+        self.menu: Menu = Menu()
         self.standard: bool = False
         self.scientific: bool = False
         self.help: bool = False
@@ -22,7 +24,12 @@ class Calculator(Tk):
         self.create_menu()
 
     def center_window(self):
-        self.eval('tk::PlaceWindow . center')
+        self.update_idletasks()
+        width = self.winfo_width()
+        height = self.winfo_height()
+        x = (self.winfo_screenwidth() // 2) - (width // 2)
+        y = (self.winfo_screenheight() // 2) - (height // 2)
+        self.geometry(f"{width}x{height}+{int(x)}+{int(y)}")
 
     def create_display_zone(self):
         self.display_zone = True
@@ -162,10 +169,11 @@ class Calculator(Tk):
             row=6, column=1,
             padx=5,
             pady=5)
-        Button(self, text="xⁿ", width=5, height=2, command=lambda: self.write_on_display("**"), bg='orange').grid(row=6,
-                                                                                                                  column=2,
-                                                                                                                  padx=5,
-                                                                                                                  pady=5)
+        Button(self, text="xⁿ", width=5, height=2, command=lambda: self.write_on_display("**"), bg='orange').grid(
+            row=6,
+            column=2,
+            padx=5,
+            pady=5)
         Button(self, text="√", width=5, height=2, command=lambda: self.write_on_display("sqrt("), bg='orange').grid(
             row=6, column=3,
             padx=5,
@@ -191,10 +199,11 @@ class Calculator(Tk):
             row=8, column=0,
             padx=5,
             pady=5)
-        Button(self, text="π", width=5, height=2, command=lambda: self.write_on_display("pi"), bg='orange').grid(row=8,
-                                                                                                                 column=1,
-                                                                                                                 padx=5,
-                                                                                                                 pady=5)
+        Button(self, text="π", width=5, height=2, command=lambda: self.write_on_display("pi"), bg='orange').grid(
+            row=8,
+            column=1,
+            padx=5,
+            pady=5)
 
     def remove_scientific_mode_buttons(self):
         self.scientific = False
@@ -216,8 +225,7 @@ class Calculator(Tk):
                     "\ntan: tangent" \
                     "\nlog: logarithm" \
                     "\nexp: exponential" \
-                    "\nπ: pi" \
-
+                    "\nπ: pi"
         lab = Label(self, text=help_text, font=("Arial", 10))
         lab.pack()
 
